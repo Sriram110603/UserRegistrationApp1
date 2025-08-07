@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "User Reviews";
+}
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-5">@ViewData["Title"]</h1>
+        <p class="lead">See what users are saying about our app.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">John D.</h5>
+                    <p class="card-text">"Super easy to use and the login system works flawlessly. 5/5!"</p>
+                </div>
+                <div class="card-footer text-muted">★ ★ ★ ★ ★</div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Ayesha M.</h5>
+                    <p class="card-text">"Clean interface and secure handling of credentials. Impressive."</p>
+                </div>
+                <div class="card-footer text-muted">★ ★ ★ ★ ☆</div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Karan V.</h5>
+                    <p class="card-text">"Minimal and fast. Would love to see multi-factor auth in future."</p>
+                </div>
+                <div class="card-footer text-muted">★ ★ ★ ★ ☆</div>
+            </div>
+        </div>
+    </div>
+</div>

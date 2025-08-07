@@ -1,0 +1,44 @@
+﻿@model List<UserRegistrationApp1.Models.User>
+@{
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Registered Users</h2>
+        <a class="btn btn-success" href="/Account/Register">Add New User</a>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th style="width: 150px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Age</td>
+                    <td>@user.Gender</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Address</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="/Account/Edit?email=@user.Email">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="/Account/Delete?email=@user.Email" onclick="return confirm('Delete this user?');">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

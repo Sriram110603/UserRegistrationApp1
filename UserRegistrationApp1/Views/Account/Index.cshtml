@@ -1,0 +1,129 @@
+﻿@using Microsoft.AspNetCore.Http
+@model X.PagedList.IPagedList<UserRegistrationApp1.Models.User>
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "User List";
+    var userRole = Context.Session.GetString("UserRole");
+    bool isAdmin = userRole == "Admin";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-1">
+    <div class="row align-items-center mb-3">
+        <div class="col-md-6">
+            <h2 class="mb-0">Registered Users</h2>
+        </div>
+        <div class="col-md-6 text-end">
+            @if (isAdmin)
+            {
+                <a href="/Account/Register" class="btn btn-success">Add User</a>
+            }
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mb-3">
+        <form method="get" asp-action="Index" class="d-flex">
+            <input type="text" name="search" value="@ViewBag.Search" class="form-control form-control-sm me-2" placeholder="Search" style="width: 150px;" />
+            <button type="submit" class="btn btn-sm btn-primary">Search</button>
+        </form>
+    </div>
+
+    <table class="table table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>DOB</th>
+                <th>Gender</th>
+                <th>Address</th>
+                @if (isAdmin)
+                {
+                    <th>Status</th>
+                    <th>Actions</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.DOB.ToString("dd-MM-yyyy")</td>
+                    <td>@user.Gender</td>
+                    <td>@user.Address</td>
+
+                    @if (isAdmin)
+                    {
+                        <td>
+                            <span class="badge @(user.IsDisabled ? "bg-danger" : "bg-success")">
+                                @(user.IsDisabled ? "Inactive" : "Active")
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Account", new { id = user.Id })">Edit</a>
+
+                                <button type="button"
+                                        class="btn btn-secondary btn-sm toggle-status-btn"
+                                        data-email="@user.Email"
+                                        data-status="@user.IsDisabled">
+                                    @(user.IsDisabled ? "Enable" : "Disable")
+                                </button>
+
+                                <form method="post" asp-action="Delete" asp-route-email="@user.Email" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center mt-4">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = ViewBag.Search }),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+            UlElementClasses = new[] { "pagination" },
+            ActiveLiElementClass = "active"
+        })
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".toggle-status-btn").click(function () {
+                const button = $(this);
+                const email = button.data("email");
+
+                $.ajax({
+                    url: '/Account/ToggleStatus',
+                    type: 'POST',
+                    data: { email: email },
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Failed to update status.");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

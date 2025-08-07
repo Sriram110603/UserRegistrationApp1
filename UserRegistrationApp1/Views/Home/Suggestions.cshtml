@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Suggestions";
+}
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-5">@ViewData["Title"]</h1>
+        <p class="lead">Help us improve! Share your thoughts or feature requests.</p>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success text-center fw-bold">
+            @ViewBag.Message
+        </div>
+    }
+
+    <form class="row g-3" method="post">
+        <div class="col-md-6">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name" name="Name" placeholder="Enter your name" required />
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email (Optional)</label>
+            <input type="email" class="form-control" id="email" name="Email" placeholder="Enter your email" />
+        </div>
+        <div class="col-12">
+            <label for="suggestion" class="form-label">Your Suggestion</label>
+            <textarea class="form-control" id="suggestion" name="Suggestion" rows="5" placeholder="Type your suggestion here..." required></textarea>
+        </div>
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary px-4">Submit</button>
+        </div>
+    </form>
+</div>

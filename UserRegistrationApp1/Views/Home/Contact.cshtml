@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-5">@ViewData["Title"]</h1>
+        <p class="lead">We're here to help. Reach out to us through any of the methods below.</p>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success text-center fw-bold">
+            @ViewBag.Message
+        </div>
+    }
+
+    <div class="row g-4">
+        <!-- Contact Info -->
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Our Contact Details</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><strong>Email:</strong> <a href="mailto:alsriram03@gmail.com">alsriram03@gmail.com</a></li>
+                        <li class="mb-2"><strong>Phone:</strong> +91 98765 43210</li>
+                        <li>
+                            <strong>Address:</strong>
+                            <p class="mb-0">
+                                81, Lakshmi Nagar<br />
+                                Porur, Chennai - 600089<br />
+                                Tamil Nadu, India
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Send Us a Message</h5>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="Name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="email" name="Email" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" name="Message" rows="4" required></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
