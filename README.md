@@ -92,13 +92,6 @@ UserRegistrationApp1/
 
 ---
 
-
-## 📄 License
-
-MIT – Use it, modify it, break it. Just give credit.
-
----
-
 ## 🙋‍♂️ Author
 
 **Sriram**  
